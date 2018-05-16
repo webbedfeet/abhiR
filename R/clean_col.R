@@ -13,6 +13,14 @@
 #' @export
 #'
 #' @examples
+#' data(iris)
+#' library(tidyverse)
+#' output <- iris %>% summarise_at(vars(Sepal.Length:Petal.Width),
+#'                                   funs(Mean = mean(.), Median=median(.))) %>%
+#'              gather(variable, value) %>%
+#'              separate(variable, c('Variable','Measure')) %>%
+#'              arrange(Variable)
+#' output %>% clean_col(Variable)
 clean_col <- function(x, colvar){
   require(dplyr)
   colv <- enquo(colvar)
