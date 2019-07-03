@@ -1,15 +1,13 @@
-browse_mygithub <- function(type = 'issues'){
+browse_mygithub <- function(type = c('issues', 'projects','wiki')){
   require(fs)
   require(stringr)
   require(glue)
   require(here)
+  type <- match.arg(type)
   if (!dir_exists(here('.git'))) {
     stop('Not a git repository')
   }
   `%!in%` <- Negate(`%in%`)
-  if (type %!in% c('issues','projects','wiki')) {
-    stop('Invalid type')
-  }
   git_url <- readLines(pipe("grep url .git/config | sed -e 's/\turl = //g'"))
   if(length(git_url)==0L) stop('Not linked with GitHub')
   bl <- str_match(git_url, 'git@github.com:([a-z]+)/([[:alnum:]]+).git')
