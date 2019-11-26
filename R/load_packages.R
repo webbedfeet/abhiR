@@ -12,8 +12,9 @@
 #' @examples
 load_packages <- function(homedir = '.') {
   `%notin%` <- Negate('%in%')
+  rversion <- paste(version$major, version$minor, sep='.')
   if(!file.exists(file.path('lib','pkgs.yml'))){
-    add_package('ProjTemplate')
+    add_package('abhiR')
   }
   pkgs <- yaml::yaml.load_file(file.path('lib','pkgs.yml'))
   if(all(stringr::str_detect(pkgs, '=>'))){# Version information included
@@ -25,8 +26,12 @@ load_packages <- function(homedir = '.') {
     if (stringr::str_detect(p, 'bioC')){ # Bioconductor packages
       pkgname <- stringr::str_extract(p, '^[a-zA-Z0-9]+')
       if (pkgname %notin% installed.packages()[,1]){
-        source('http://bioconductor.org/biocLite.R')
-        biocLite(pkgname)
+        if(rversion < '3.5'){
+          source('http://bioconductor.org/biocLite.R')
+          biocLite(pkgname)
+        } else {
+          BiocManager::install(pkgname)
+        }
         suppressPackageStartupMessages(library(pkgname, character.only = TRUE))
       }
     } else if (stringr::str_detect(p, '/')){ # GitHub packages
