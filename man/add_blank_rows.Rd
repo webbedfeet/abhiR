@@ -13,6 +13,9 @@ add_blank_rows(.data, .before = NULL, .after = NULL)
 
 \item{.after}{A vector of indices}
 }
+\value{
+
+}
 \description{
 add_blank_rows adds rows of NA values at particular specified rows of a data.frame or tibble
 One can specify either the row indices before which the rows are to be inserted or the 

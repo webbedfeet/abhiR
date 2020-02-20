@@ -13,6 +13,9 @@ clean_cols(x, ..., arrange = F)
 
 \item{arrange}{Whether data should be sorted by column values}
 }
+\value{
+
+}
 \description{
 Clean columns to make better tables
 }

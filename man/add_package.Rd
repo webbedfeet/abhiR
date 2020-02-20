@@ -13,6 +13,9 @@ add_package(pkgs, homedir = ".", bioC = FALSE)
 
 \item{bioC}{Whether packages are from Bioconductor}
 }
+\value{
+
+}
 \description{
 Packages can be in Github format ('user/packagename') as well
 as pure 'packagename'. If bioC=TRUE, all the packages must be from Bioconductor

@@ -13,6 +13,9 @@ pdf2tiff(dirs, compress = TRUE, dpi = 300)
 
 \item{dpi}{The DPI for the TIFF files (default=300)}
 }
+\value{
+
+}
 \description{
 This function converts all PDF files in a directory into TIFF files, optionally with
 a specified DPI (default is 300) and LZW compression. This function is meant to be used

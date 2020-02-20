@@ -6,6 +6,9 @@
 \usage{
 find_dropbox()
 }
+\value{
+
+}
 \description{
 Find path to Dropbox installation on local machine
 }

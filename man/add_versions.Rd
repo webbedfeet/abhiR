@@ -6,6 +6,9 @@
 \usage{
 add_versions(pkgs)
 }
+\value{
+
+}
 \description{
 Add version information to project packages
 }
