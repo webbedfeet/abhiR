@@ -2,8 +2,8 @@ This work was performed using `r sessioninfo::platform_info()$version` and the f
 packages:
 
 ```{r}
-pacman::p_load(char=c('tidyverse','fs'))
-codefiles = fs::dir_ls(regex = 'R[md]*$', type = 'file', recurse=TRUE)
+pacman::p_load(char=c('tidyverse','fs', 'here'))
+codefiles = fs::dir_ls(here(),regex = 'R[md]*$', type = 'file', recurse=TRUE)
 bl <- purrr::map(codefiles, ~grep('library\\(', readLines(.x), value=TRUE)) %>% 
   unlist() %>% 
   unique()
