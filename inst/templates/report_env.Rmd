@@ -4,7 +4,7 @@ packages:
 ```{r}
 pacman::p_load(char=c('tidyverse','fs', 'here'))
 
-abhiR::extract_pkgs()
+pkgs <- abhiR::extract_pkgs()
 pacman::p_load(char=pkgs)
 
 sessioninfo::package_info(pkgs) %>% filter(attached) %>%
