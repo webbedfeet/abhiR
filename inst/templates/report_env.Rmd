@@ -5,12 +5,13 @@ packages:
 pacman::p_load(char=c('tidyverse','fs', 'here'))
 
 pkgs <- abhiR::extract_pkgs()
-pacman::p_load(char=pkgs)
 
-sessioninfo::package_info(pkgs) %>% filter(attached) %>%
+sessioninfo::package_info(pkgs) %>% 
+  as.data.frame() %>% 
+  filter(package %in% pkgs) %>%
   mutate(ghuser = str_match(source, 'Github \\(([:alnum:]+)')[,2]) %>%
   mutate(package = ifelse(is.na(ghuser), package, paste(ghuser, package, sep='/'))) %>%
-  glue::glue_data("{package} ({loadedversion})") %>%
+  glue::glue_data("{package} ({ondiskversion})") %>%
   paste(collapse='; ') %>%
   pander::pander()
 ```
