@@ -6,9 +6,10 @@ pacman::p_load(char=c('tidyverse','fs', 'here'))
 
 pkgs <- abhiR::extract_pkgs()
 
-sessioninfo::package_info(pkgs) %>% 
+tmp <- sessioninfo::package_info(pkgs) %>% 
   as.data.frame() %>% 
-  filter(package %in% pkgs, !is.na(ondiskversion)) %>%
+  filter(package %in% pkgs, !is.na(ondiskversion)) 
+tmp %>%
   mutate(ghuser = str_match(source, 'Github \\(([:alnum:]+)')[,2]) %>%
   mutate(package = ifelse(is.na(ghuser), package, paste(ghuser, package, sep='/'))) %>%
   glue::glue_data("{package} ({ondiskversion})") %>%
@@ -16,4 +17,9 @@ sessioninfo::package_info(pkgs) %>%
   pander::pander()
 ```
 
-> `<username>/<packagename>` refers to a package sourced from Github, that can be installed using `remotes::install_github("<username>/<packagename>")`
+```{r, echo=FALSE, message=FALSE, warning=FALSE}
+if(sum(stringr::str_detect(tmp$source, 'Github'))>0){
+  cat('\n> `<username>/<packagename>` refers to a package sourced from Github, that can be installed using `remotes::install_github("<username>/<packagename>")`')
+}
+```
+
