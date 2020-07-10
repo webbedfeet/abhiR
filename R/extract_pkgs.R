@@ -10,10 +10,11 @@ extract_pkgs <- function(){
   require(tidyverse)
 
   codefiles <- fs::dir_ls(here::here(), regex = 'R[md]*$', recurse=TRUE, type='file')
-  a <- purrr::map(codefiles, ~grep('library\\(.*\\)', readLines(.), value=TRUE))
+  a <- purrr::map(codefiles, ~grep('^library\\(.*\\)', readLines(.),
+                                   value=TRUE))
   b <- purrr::map(codefiles, ~grep('p_load', readLines(.), value=TRUE)) %>%
     unlist() %>% unname()
-  d <- purrr::map(codefiles, ~grep('require\\(', readLines(.), value=TRUE))
+  d <- purrr::map(codefiles, ~grep('^require\\(', readLines(.), value=TRUE))
 
   pkg_a <- purrr::map(a, ~str_remove(.x, '#.*')) %>%
     purrr::map(~stringr::str_extract_all(.x, '[\\w\\.]+')) %>%
