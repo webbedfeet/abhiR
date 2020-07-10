@@ -1,7 +1,7 @@
 This work was performed using `r sessioninfo::platform_info()$version` and the following additional
 packages:
 
-```{r}
+```{r, echo=FALSE, warning=FALSE, message=FALSE}
 pacman::p_load(char=c('tidyverse','fs', 'here'))
 
 pkgs <- abhiR::extract_pkgs()
