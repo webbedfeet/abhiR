@@ -41,7 +41,12 @@ extract_pkgs <- function(){
     modify_depth(2, ~.x[length(.x)]) %>%
     unlist() %>% unname() %>% unique()
 
-  pkgs <- Reduce(union, list(pkg_a, pkg_b1, pkg_b2, pkg_d))
+  pkg_e = purrr::map(codefiles, ~grep('[:alnum:]+::', readLines(.x),
+                                      value=TRUE)) %>%
+    purrr::map(~stringr::str_match(.x, '(\\w+)::\\w+')[,2]) %>%
+    unlist() %>% unname()
+
+  pkgs <- Reduce(union, list(pkg_a, pkg_b1, pkg_b2, pkg_d, pkg_e))
 
   return(sort(pkgs))
 }
