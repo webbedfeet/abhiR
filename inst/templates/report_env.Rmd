@@ -8,7 +8,7 @@ pkgs <- abhiR::extract_pkgs()
 
 sessioninfo::package_info(pkgs) %>% 
   as.data.frame() %>% 
-  filter(package %in% pkgs) %>%
+  filter(package %in% pkgs, !is.na(ondiskversion)) %>%
   mutate(ghuser = str_match(source, 'Github \\(([:alnum:]+)')[,2]) %>%
   mutate(package = ifelse(is.na(ghuser), package, paste(ghuser, package, sep='/'))) %>%
   glue::glue_data("{package} ({ondiskversion})") %>%
