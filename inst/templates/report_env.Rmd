@@ -3,13 +3,8 @@ packages:
 
 ```{r}
 pacman::p_load(char=c('tidyverse','fs', 'here'))
-codefiles = fs::dir_ls(here(),regex = 'R[md]*$', type = 'file', recurse=TRUE)
-bl <- purrr::map(codefiles, ~grep('library\\(', readLines(.x), value=TRUE)) %>% 
-  unlist() %>% 
-  unique()
-bl <- bl[stringr::str_detect(bl, '^#', negate=TRUE)]
 
-pkgs <- stringr::str_match(bl, pattern='library\\(([:alnum:]+)\\)')[,2] %>% unique()
+abhiR::extract_pkgs()
 pacman::p_load(char=pkgs)
 
 sessioninfo::package_info(pkgs) %>% filter(attached) %>%
